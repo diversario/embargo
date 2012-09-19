@@ -25,9 +25,7 @@ To override a module:
     });
 
 By doing this, you're saying that `require('someModule')` will return an object with a `doStuff` property that you specified in `overrides` object, instead of actual module exports.
-This override will propagate to all `require` calls in the current VM.
-
-Relative paths are not supported at the moment, only modules residing in `node_modules` directory.
+This override will propagate to all `require` calls in the current VM. It should also work for modules `require`d through relative path.
 
 # License
 
