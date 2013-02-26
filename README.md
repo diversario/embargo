@@ -31,9 +31,9 @@ To override a module:
       console.log(err, result); // null, 'it worked!'
     });
 
-Signature of `embargo` function is (`module_name_string`, `stub`).
+Signature of `embargo` function is (`module_name_string`, `override`).
 
-By doing this, you're saying that `require('someModule')` will return an object with a `doStuff` property that you specified in `overrides` object, instead of actual module exports.
+By doing this, you're saying that `require('someModule')` will return an object with a `doStuff` property that you specified in `override` object, instead of actual module exports.
 This override will propagate to all `require` calls in the current VM. It should also work for modules `require`d through relative path.
 
 # License
