@@ -1,3 +1,10 @@
+#### Breaking interface change in v0.1.0
+
+In v0.1.0 `embargo` supports overriding cached modules, e.g. a module already `require()`d can be stubbed.
+This prompted interface change from using subscript notation to a function call (`[]` -> `()`). 
+
+________
+
 # Embargo
 
 Embargo is a helper (or a mock) that replaces specific `require` calls with a user-defined stub. 
@@ -12,17 +19,19 @@ To override a module:
 
     var embargo = require('embargo');
     
-    embargo.someModule = {
+    embargo(someModule, {
       'doStuff': function(arg, cb) {
         cb(null, 'it worked!');
       }
-    }
+    })
     
     var someModule = require('someModule');
     
     console.log(someModule.doStuff(null, function(err, result){
       console.log(err, result); // null, 'it worked!'
     });
+
+Signature of `embargo` function is (`module_name_string`, `stub`).
 
 By doing this, you're saying that `require('someModule')` will return an object with a `doStuff` property that you specified in `overrides` object, instead of actual module exports.
 This override will propagate to all `require` calls in the current VM. It should also work for modules `require`d through relative path.
