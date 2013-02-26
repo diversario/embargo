@@ -2,7 +2,7 @@
 var jsLoader = require.extensions['.js']
 // this will hold overrides keyed on module absolute path
   , registeredOverrides = {}
-  , decrlaredOverrides = {}
+  , declaredOverrides = {}
   , cachedModules = {}
   , overrides  = {}
 ;
@@ -20,9 +20,9 @@ function applyOverrides(modContent, modPath) {
   module.paths = modContent.parent.paths;
 
   // go over exports and register all declared overrides
-  Object.keys(decrlaredOverrides).forEach(function (moduleName) {
+  Object.keys(declaredOverrides).forEach(function (moduleName) {
     if (!registeredOverrides[moduleName]) {
-      registeredOverrides[moduleName] = decrlaredOverrides[moduleName];
+      registeredOverrides[moduleName] = declaredOverrides[moduleName];
     }
   });
 
@@ -100,7 +100,7 @@ function stubCache(name, content) {
  * @param content
  */
 function stub(name, content) {
-  decrlaredOverrides[name] = content;
+  declaredOverrides[name] = content;
   stubCache(name, content);
 }
 
