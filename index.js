@@ -83,7 +83,14 @@ function stubCache(name, content) {
     try {
       var realPaths = module.paths;
       module.paths = module.parent.paths;
-      var resolvedPath = require.resolve(name);
+
+      var dirname = module.paths[0].split('/');
+      dirname.pop();
+      dirname.push(name);
+      var filename = dirname.join('/');
+
+      var resolvedPath = require.resolve(filename);
+      require(resolvedPath);
       require.cache[resolvedPath].exports = content;
       module.paths = realPaths;
     } catch(e) {
@@ -100,6 +107,7 @@ function stubCache(name, content) {
  * @param content
  */
 function stub(name, content) {
+  //require.cache = {};
   declaredOverrides[name] = content;
   stubCache(name, content);
 }
